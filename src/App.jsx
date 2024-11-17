@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import styles from './App.css';
 
 import Advantages from './pages/Advantages';
@@ -35,7 +35,7 @@ const App = () => {
           isMenuOpen={isMenuOpen}
           toggleMenu={toggleMenu}
         />
-        <NavMenu isDesktop={isDesktop} isMenuOpen={isMenuOpen} />
+        <NavMenu isDesktop={isDesktop} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu}/>
       </div>
       <main className={isMenuOpen && !isDesktop ? 'overflow' : ''}>
         <Routes>
@@ -45,6 +45,7 @@ const App = () => {
           <Route path="/Promotariff" element={<Promotariff />} />
           <Route path="/eSIM" element={<ESIM />} />
           <Route path="/Connection" element={<Connection />} />
+          <Route path="*" element={<Navigate to="/Advantages" replace />} />
         </Routes>
       </main>
     </Router>
@@ -75,17 +76,17 @@ const Header = ({ isDesktop, isMenuOpen, toggleMenu }) => (
   </header>
 );
 
-const NavMenu = ({ isDesktop, isMenuOpen }) => (
+const NavMenu = ({ isDesktop, isMenuOpen, toggleMenu }) => (
   (isMenuOpen || isDesktop) && (
     <>
     <div className='navContainer'>
       <nav className='nav'>
-        <NavLink to="/Advantages">Преимущества Tele2</NavLink>
-        <NavLink to="/Rates">Тарифы</NavLink>
-        <NavLink to="/Stocks">Акции и спецпредложения</NavLink>
-        <NavLink to="/Promotariff">Промотариф Tele2</NavLink>
-        <NavLink to="/eSIM">Технология eSIM</NavLink>
-        <NavLink to="/Connection">Подключение нового абонента</NavLink>
+        <NavLink onClick={()=>isMenuOpen ?toggleMenu():''} to="/Advantages">Преимущества Tele2</NavLink>
+        <NavLink onClick={()=>isMenuOpen ?toggleMenu():''} to="/Rates">Тарифы</NavLink>
+        <NavLink onClick={()=>isMenuOpen ?toggleMenu():''} to="/Stocks">Акции и спецпредложения</NavLink>
+        <NavLink onClick={()=>isMenuOpen ?toggleMenu():''} to="/Promotariff">Промотариф Tele2</NavLink>
+        <NavLink onClick={()=>isMenuOpen ?toggleMenu():''} to="/eSIM">Технология eSIM</NavLink>
+        <NavLink onClick={()=>isMenuOpen ?toggleMenu():''} to="/Connection">Подключение нового абонента</NavLink>
       </nav>
     </div>
     {!isDesktop && (
